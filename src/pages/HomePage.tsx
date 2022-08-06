@@ -5,6 +5,14 @@ import data from "../../data.json";
 import { Workout } from "../../types";
 import WorkoutItem from "./component/WorkoutItem";
 
+const PressableItem = ({ item }: { item: Workout }) => {
+  return (
+    <Pressable onPress={() => alert(item.name)}>
+      <WorkoutItem item={item} />
+    </Pressable>
+  );
+};
+
 const HomePage = ({ navigation }: NativeStackHeaderProps) => {
   return (
     <View style={styles.container}>
@@ -14,7 +22,11 @@ const HomePage = ({ navigation }: NativeStackHeaderProps) => {
         data={data as Workout[]}
         renderItem={({ item }) => {
           return (
-            <Pressable onPress={() => alert(item.name)}>
+            <Pressable
+              onPress={() =>
+                navigation.push("WorkoutDetails", { slug: item.slug })
+              }
+            >
               <WorkoutItem item={item} />
             </Pressable>
           );
