@@ -1,20 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import Navigation from "./src/navigation/index";
+import useCachedResources from "./src/hooks/useCachedResources";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const isLoaded = useCachedResources();
+  console.log(isLoaded);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (isLoaded) {
+    return <Navigation />;
+  } else {
+    return <AntDesign name="loading2" size={24} color="black" />;
+  }
+}
