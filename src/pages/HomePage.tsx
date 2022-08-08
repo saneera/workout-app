@@ -1,20 +1,11 @@
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, View, Text, FlatList, Pressable } from "react-native";
-import { Workout } from "../../types";
 import WorkoutItem from "./component/WorkoutItem";
-import { getWorkOuts } from "../../storage/workouts";
+import useWorkouts from "../hooks/useWorkouts";
 
 const HomePage = ({ navigation }: NativeStackHeaderProps) => {
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
-
-  useEffect(() => {
-    async function getData() {
-      const _workouts = await getWorkOuts();
-      setWorkouts(_workouts);
-    }
-    getData();
-  }, []);
+  const workouts = useWorkouts();
 
   return (
     <View style={styles.container}>
@@ -44,6 +35,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
+    backgroundColor: "pink",
   },
   header: {
     fontFamily: "montserrat-bold",
